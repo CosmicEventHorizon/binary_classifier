@@ -16,41 +16,49 @@ int main()
     int dog = 500;
     int cat = 0;
     int weights[5];
-    int learning_rate = 4;
+    int learning_rate = 2;
 
     for (int i = 0; i < 5; ++i)
     {
         weights[i] = rand() % (max - min + 1) + min;
     }
+
     printf("The weights are: ");
-    // weight and x dot product
-    for (int j = 0; j < 5; ++j)
-    {
-        printf(" %d ", weights[j]);
-    }
-    for (int i = 0; i < 5; i++)
-    {
-        if (i < 2)
-        {
-            weights[i] = weights[i] + learning_rate * (-x[i] + (dog - weights[i] * x[i]));
-        }
-        else
-        {
-            weights[i] = weights[i] + learning_rate * (-x[i] * (cat - weights[i] * x[i]));
-        }
-    }
-    
-    printf("\nThe new weights are: ");
-    // weight and x dot product
     for (int j = 0; j < 5; ++j)
     {
         printf(" %d ", weights[j]);
     }
 
+    // weight and x dot product
+    for (int i = 0; i < 5; i++)
+    {
+        total += x[i] * weights[i];
+    }
+    printf("\nThe dot product is: %d", total);
+
+    for (int i = 0; i < 5; i++)
+    {
+        weights[i] = weights[i] - learning_rate * (-x[i]);
+    }
+
+    printf("\nThe new weights are: ");
+    for (int j = 0; j < 5; ++j)
+    {
+        printf(" %d ", weights[j]);
+    }
+
+    total = 0;
+    // new weight and x dot product
+    for (int i = 0; i < 5; i++)
+    {
+        total += x[i] * weights[i];
+    }
+    printf("\nThe dot product is: %d", total);
 
     return 0;
 }
 
+/*
 int sigma(int i, int m, int* weights[], int* x[])
 {
     int sum;
@@ -59,3 +67,12 @@ int sigma(int i, int m, int* weights[], int* x[])
     }
     return sum;
 }
+*/
+
+/*
+C = Predicted - sigma(wx)
+-namla(C) = <-x1, -x2,...., -xi>
+wi <- wi - n*(-xi)
+n = learning rate
+
+*/
